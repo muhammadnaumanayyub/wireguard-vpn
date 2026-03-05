@@ -64,7 +64,7 @@ PrivateKey = SERVER_PRIVATE_KEY
 # Replace SERVER_PRIVATE_KEY with the private key generated earlier.
 
 ## Step 5 – Enable IP Forwarding
-
+ 
 # Linux does not forward network packets between interfaces by default.
 # To allow the VPN server to route traffic between the VPN clients and the internet, IP forwarding must be enabled.
 
@@ -106,4 +106,24 @@ sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 sudo iptables -t nat -L
 
 # If the rule appears in the output, NAT is successfully configured.
+
+
+## Step 7 – Start the WireGuard VPN Interface
+# After configuring the server, the WireGuard VPN interface can be started.
+# Start the VPN Interface
+sudo wg-quick up wg0
+
+# This command reads the configuration file: /etc/wireguard/wg0.conf and creates the virtual VPN interface.
+
+# Verify the Interface
+ip a
+
+# You should see the wg0 interface with the VPN IP address.
+# Check WireGuard Status
+sudo wg
+# This command displays the WireGuard interface details such as the public key and listening port.
+# Enable Auto Start
+sudo systemctl enable wg-quick@wg0
+# This ensures the VPN interface starts automatically when the server boots.
+
 

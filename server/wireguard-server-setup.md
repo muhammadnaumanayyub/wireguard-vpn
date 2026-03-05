@@ -90,3 +90,20 @@ sudo sysctl -p
 cat /proc/sys/net/ipv4/ip_forward
 
 # If the output is 1, IP forwarding is successfully enabled.
+
+## Step 6 – Configure NAT (Network Address Translation)
+# VPN clients use private IP addresses that are not routable on the public internet.
+# To allow VPN clients to access the internet through the server, we configure NAT.
+# Identify the Internet Interface 
+ip a
+
+# Locate the interface connected to the internet (usually eth0).
+# Configure NAT rule
+sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+# This rule changes the source IP of outgoing packets so that internet traffic appears to originate from the server.
+# Verify NAT rule
+
+sudo iptables -t nat -L
+
+# If the rule appears in the output, NAT is successfully configured.
+

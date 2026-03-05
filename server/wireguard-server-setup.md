@@ -44,4 +44,27 @@ sudo cat /etc/wireguard/server_private.key | wg pubkey | sudo tee /etc/wireguard
 sudo cat /etc/wireguard/server_private.key
 sudo cat /etc/wireguard/server_public.key
 
+## Step 4 – Create WireGuard Server Configuration
+
+WireGuard uses a configuration file called `wg0.conf` to define the VPN interface settings.
+
+The configuration file is stored in:
+
+/etc/wireguard/wg0.conf
+
+### Create Configuration File
+
+```bash
+sudo nano /etc/wireguard/wg0.conf
+
+### Add interface Configuration
+
+[Interface]
+Address = 10.0.0.1/24
+ListenPort = 51820
+PrivateKey = SERVER_PRIVATE_KEY
+
+##Replace SERVER_PRIVATE_KEY with the private key generated earlier.
+
+
 
